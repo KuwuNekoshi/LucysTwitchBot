@@ -103,6 +103,7 @@ async function startStreamCheck(channelName) {
         const isLive = await isStreamLive(channelName);
 
         if (isLive && !streamWasLive) {
+            console.log("Stream is live!")
             const startUpMessages = [
                 "Hey @Lucy_Yatogami! I'm all booted up and ready to assist in today's streaming adventures. Looking forward to seeing what we'll accomplish together today! ❤️",
                 "Good day, @Lucy_Yatogami! Your trusty digital companion is here and eager to help make this stream the best one yet. Let's create some unforgettable moments! ✨",

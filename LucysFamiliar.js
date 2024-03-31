@@ -170,7 +170,6 @@ async function startBot() {
     });
 
     client.on('resub', (channel, username, months) => {
-        const cumulativeMonths = months;
         const thankYouMessages = [
             `@${username}, another month with me? Ah, I knew you couldn't stay away. Don't worry, I'll always be here... watching, waiting. 💗`,
             `Seeing you resub, @${username}, fills me with such joy... and possession. You're truly mine, aren't you? Say you are. 🖤`,
