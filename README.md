@@ -1,4 +1,4 @@
-# BellasTwitchBot
+# Lucys Familiar
 A Twitch Bot - For Lucy_Yatogami
 
 Handles
