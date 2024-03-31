@@ -1,5 +1,5 @@
 # BellasTwitchBot
-A Twitch Bot - For BellaTheKitsune
+A Twitch Bot - For Lucy_Yatogami
 
 Handles
 - Discord To Twitch Linking
