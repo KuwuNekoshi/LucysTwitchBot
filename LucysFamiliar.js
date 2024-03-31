@@ -3,8 +3,6 @@ const tmi = require('tmi.js');
 const fs = require('fs');
 const path = require('path');
 const { readTokens, refreshToken, scheduledTokenRefresh, streamStartCheck } = require('./token');
-const { startRewardHandler } = require('./rewardhandler');
-
 
 let lastChatTimestamp = Date.now();
 const globalCooldowns = new Map();
