@@ -3,7 +3,7 @@ const { getBroadcasterId, getToken } = require('../token');
 require('dotenv').config();
 
 async function uptimeCommand(client, channel, tags, message) {
-    const clientId = process.env.BCLIENT_ID;
+    const clientId = process.env.BOT_CLIENT_ID;
     const accessToken = await getToken();
     const broadcasterId = await getBroadcasterId(process.env.CHANNEL_NAME);
 
@@ -17,7 +17,7 @@ async function uptimeCommand(client, channel, tags, message) {
         const response = await fetch(url, { headers });
         const data = await response.json();
 
-        if (data.data.length > 0) {
+        if (data.data && data.data.length > 0) {
             const stream = data.data[0];
             const startTime = new Date(stream.started_at);
             const currentTime = new Date();
