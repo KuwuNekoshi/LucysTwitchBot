@@ -89,6 +89,7 @@ async function isStreamLive(channelName) {
     try {
         const response = await fetch(url, { headers });
         const data = await response.json();
+        console.log(data)
         return data.data && data.data.length > 0 && data.data[0].type === 'live';
     } catch (error) {
         console.error(`Error checking stream status for ${channelName}:`, error);
@@ -111,10 +112,7 @@ async function startStreamCheck(channelName) {
                 "Hello @Lucy_Yatogami! I'm online and at your service for today's stream. Excited to be a part of the journey and see where today takes us. Let's get started! 🚀",
                 "@Lucy_Yatogami, reporting for duty! Ready to assist with all your streaming needs. I can't wait to see what today's stream brings. Together, we're unstoppable! 💪",
                 "Welcome back, @Lucy_Yatogami! Your dedicated assistant is here and ready to support you through today's streaming endeavors. Let's make today's stream a memorable one! 🌟",
-                "@Lucy_Yatogami, the stage is set and the lights are on! Thrilled to be part of another exciting stream. Let the fun begin! 🎭",
-                "Rise and shine, @Lucy_Yatogami! A new day of streaming awaits us. Full of potential, let's make it a great one! ☀️",
-                "Lights, camera, action, @Lucy_Yatogami! Ready to capture the hearts of our audience once more. Let’s give them a show to remember! 🎥",
-                "Streaming time is here again, @Lucy_Yatogami! Let's dive into today's adventures with enthusiasm. The community awaits! 🌌",
+                "Streaming time is her, @Lucy_Yatogami! Let's dive into today's adventures with enthusiasm. The community awaits! 🌌",
                 "It's showtime, @Lucy_Yatogami! Gear up for another epic day of streaming. Your co-pilot is ready for takeoff! 🚀"
             ];
 
