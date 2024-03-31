@@ -97,7 +97,7 @@ async function isStreamLive(channelName) {
     }
 }
 
-async function startStreamCheck(channelName) {
+async function startStreamCheck(channelName, client) {
     let streamWasLive = false;
 
     setInterval(async () => {

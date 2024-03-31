@@ -40,7 +40,7 @@ async function startBot() {
 
     client.connect();
 
-    startStreamCheck(process.env.CHANNEL_NAME).catch(console.error);
+    startStreamCheck(process.env.CHANNEL_NAME, client).catch(console.error);
 
     const commands = new Map();
     const aliases = new Map();
