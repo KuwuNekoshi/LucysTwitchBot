@@ -2,7 +2,6 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const fs = require('fs');
 const path = require('path');
-const pool = require('./database');
 const { readTokens, refreshToken, scheduledTokenRefresh, streamStartCheck } = require('./token');
 const { startRewardHandler } = require('./rewardhandler');
 
@@ -112,7 +111,7 @@ async function startBot() {
         }
 
         try {
-            command.execute(client, channel, tags, message, commands, pool);
+            command.execute(client, channel, tags, message, commands);
         } catch (error) {
             console.error(error);
         }
