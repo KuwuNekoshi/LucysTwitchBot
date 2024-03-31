@@ -12,26 +12,7 @@ async function getToken() {
 }
 
 async function getBroadcasterId(channelName) {
-    const oAuthToken = await getToken();
-    const url = `https://api.twitch.tv/helix/users?login=${channelName}`;
-    const headers = {
-        'Client-ID': clientId,
-        'Authorization': `Bearer ${oAuthToken}`,
-    };
-
-    try {
-        const response = await fetch(url, { headers });
-        const data = await response.json();
-        if (data.data && data.data.length > 0) {
-            return data.data[0].id;
-        } else {
-            console.log('User not found');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error fetching broadcaster ID:', error);
-        return null;
-    }
+    return "217731363";
 }
 
 async function saveTokens(accessToken, refreshToken) {

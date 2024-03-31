@@ -195,7 +195,7 @@ async function startBot() {
         }
     }
 
-    setInterval(() => sendAutomatedMessage(process.env.CHANNEL_NAME), 60000 * 10);
+    //setInterval(() => sendAutomatedMessage(process.env.CHANNEL_NAME), 60000 * 10);
 }
 
  startBot().catch(console.error);
