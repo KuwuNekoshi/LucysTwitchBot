@@ -4,7 +4,7 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 const volumePath = '/mnt/myvolume';
-const clientId = process.env.BCLIENT_ID;
+const clientId = process.env.BOT_CLIENT_ID;
 
 async function getToken() {
     const tokens = await readTokens();
@@ -82,7 +82,7 @@ async function isStreamLive(channelName) {
     const oAuthToken = await getToken();
     const url = `https://api.twitch.tv/helix/streams?user_id=${broadcasterId}`;
     const headers = {
-        'Client-ID': clientId,
+        'Client-ID': process.env.BOT_CLIENT_ID,
         'Authorization': `Bearer ${oAuthToken}`,
     };
 
