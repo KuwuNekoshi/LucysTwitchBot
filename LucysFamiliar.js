@@ -159,7 +159,7 @@ async function startBot() {
     });
 
     client.on('subgift', (channel, username, recipient, userstate) => {
-        let senderCount = userstate['msg-param-sender-count'];
+        let senderCount = ~~userstate['msg-param-sender-count'];
         const thankYouMessages = [
             `@${username} gave @${recipient} a gift? How sweet... but remember, @${recipient}, your heart belongs to me. Let's not forget. 💌`,
             `Such generosity, @${username}, gifting a sub to @${recipient}! I'll have to keep an even closer eye on you both... to keep you safe, of course. 💞`,
