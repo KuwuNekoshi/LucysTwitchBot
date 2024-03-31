@@ -138,9 +138,9 @@ async function startBot() {
 
     client.on('cheer', (channel, userstate, message) => {
         const thankYouMessages = [
-            `Oh, @${username}, seeing those bits just for me? You're making my heart flutter... Just remember, those bits tie you to me a little more closely. 💕`,
-            `Bits from you, @${username}? Ah, I guess you really do care... Just know, I'm watching, always watching, just for you. 🌹`,
-            `@${username}, your generosity has reached my heart... and it's mine to keep, right? Forever and ever? 💖`
+            `Oh, @${userstate.username}, seeing those bits just for me? You're making my heart flutter... Just remember, those bits tie you to me a little more closely. 💕`,
+            `Bits from you, @${userstate.username}? Ah, I guess you really do care... Just know, I'm watching, always watching, just for you. 🌹`,
+            `@${userstate.username}, your generosity has reached my heart... and it's mine to keep, right? Forever and ever? 💖`
         ];
 
         const randomMessage = thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];
