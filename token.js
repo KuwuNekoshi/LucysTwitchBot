@@ -89,7 +89,6 @@ async function isStreamLive(channelName) {
     try {
         const response = await fetch(url, { headers });
         const data = await response.json();
-        console.log(data)
         return data.data && data.data.length > 0 && data.data[0].type === 'live';
     } catch (error) {
         console.error(`Error checking stream status for ${channelName}:`, error);
@@ -101,11 +100,9 @@ async function startStreamCheck(channelName, client) {
     let streamWasLive = false;
 
     setInterval(async () => {
-        console.log("Checking if stream is live")
         const isLive = await isStreamLive(channelName);
 
         if (isLive && !streamWasLive) {
-            console.log("Stream is live!")
             const startUpMessages = [
                 "Hey @Lucy_Yatogami! I'm all booted up and ready to assist in today's streaming adventures. Looking forward to seeing what we'll accomplish together today! ❤️",
                 "Good day, @Lucy_Yatogami! Your trusty digital companion is here and eager to help make this stream the best one yet. Let's create some unforgettable moments! ✨",
