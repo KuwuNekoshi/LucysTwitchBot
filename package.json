@@ -1,10 +1,10 @@
 {
-  "name": "bellas-watchdog",
+  "name": "lucys-familiar",
   "version": "1.0.0",
   "description": "A Twitch bot for managing chat and interactions.",
-  "main": "BellasWatchdog.js",
+  "main": "LucysFamiliar.js",
   "scripts": {
-    "start": "node BellasWatchdog.js"
+    "start": "node LucysFamiliar.js"
   },
   "author": "Kuro",
   "license": "ISC",

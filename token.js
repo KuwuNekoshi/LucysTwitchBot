@@ -49,14 +49,13 @@ const tokenFilePath = path.join(volumePath, 'tokens.json');
 
 async function readTokens() {
     try {
-        await fs.access(tokenFilePath); // Check if the file exists
+        await fs.access(tokenFilePath);
         const data = await fs.readFile(tokenFilePath);
         return JSON.parse(data);
     } catch (error) {
         if (error.code === 'ENOENT') {
-            // If the file does not exist, return a default value or create the file
             console.log('tokens.json not found, creating file with default content.');
-            const defaultTokens = { accessToken: process.env.BAccessToken, refreshToken: process.env.BRefreshToken };
+            const defaultTokens = { accessToken: process.env.OAUTH_TOKEN, refreshToken: process.env.BOT_REFRSHTOKEN };
             await fs.writeFile(tokenFilePath, JSON.stringify(defaultTokens));
             return defaultTokens;
         } else {
@@ -72,8 +71,8 @@ async function refreshToken(refreshToken) {
     const params = new URLSearchParams();
     params.append('grant_type', 'refresh_token');
     params.append('refresh_token', refreshToken);
-    params.append('client_id', process.env.BCLIENT_ID);
-    params.append('client_secret', process.env.BCLIENT_SECRET);
+    params.append('client_id', process.env.BOT_CLIENT_ID);
+    params.append('client_secret', process.env.BOT_SECRET);
 
     try {
         const response = await fetch(url, { method: 'POST', body: params });
@@ -92,23 +91,48 @@ async function refreshToken(refreshToken) {
     }
 }
 
-async function scheduledTokenRefresh() {
+async function isStreamLive(channelName) {
+    const broadcasterId = await getBroadcasterId(channelName);
+    if (!broadcasterId) {
+        console.log(`Could not find broadcaster ID for ${channelName}`);
+        return false;
+    }
+
+    const oAuthToken = await getToken();
+    const url = `https://api.twitch.tv/helix/streams?user_id=${broadcasterId}`;
+    const headers = {
+        'Client-ID': clientId,
+        'Authorization': `Bearer ${oAuthToken}`,
+    };
+
     try {
-        const tokens = await readTokens();
-        if (!tokens || !tokens.refreshToken) {
-            console.error('No refresh token available.');
-            return;
-        }
-        
-        const refreshedTokens = await refreshToken(tokens.refreshToken);
-        if (refreshedTokens) {
-            console.log('Token refreshed successfully.');
-        } else {
-            console.error('Failed to refresh token.');
-        }
+        const response = await fetch(url, { headers });
+        const data = await response.json();
+        return data.data && data.data.length > 0 && data.data[0].type === 'live';
     } catch (error) {
-        console.error('Error in scheduled token refresh:', error);
+        console.error(`Error checking stream status for ${channelName}:`, error);
+        return false;
     }
 }
 
-module.exports = { saveTokens, readTokens, refreshToken, scheduledTokenRefresh, getBroadcasterId, getToken };
+async function startStreamCheck(channelName) {
+    let streamWasLive = false; // Track the previous state
+
+    setInterval(async () => {
+        const isLive = await isStreamLive(channelName);
+
+        if (isLive && !streamWasLive) {
+            // Stream has just gone live
+            streamStartMessages.forEach(async (msg) => {
+                // Assuming 'client' is your initialized tmi.js client
+                client.say(channelName, msg);
+            });
+            streamWasLive = true;
+        } else if (!isLive && streamWasLive) {
+            // Stream has ended
+            streamWasLive = false;
+        }
+    }, 60000);
+}
+
+module.exports = { saveTokens, readTokens, refreshToken, getBroadcasterId, getToken, startStreamCheck };
