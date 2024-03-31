@@ -2,7 +2,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const fs = require('fs');
 const path = require('path');
-const { readTokens, refreshToken, scheduledTokenRefresh, streamStartCheck } = require('./token');
+const { readTokens, refreshToken, streamStartCheck } = require('./token');
 
 let lastChatTimestamp = Date.now();
 const globalCooldowns = new Map();
@@ -37,9 +37,6 @@ async function startBot() {
         accessToken = tokens.accessToken;
         currentRefreshToken = tokens.refreshToken;
     }
-
-    const refreshInterval = 3 * 60 * 60 * 1000 + 45 * 60 * 1000;
-    setInterval(scheduledTokenRefresh, refreshInterval);
 
     client.connect();
 
@@ -141,7 +138,9 @@ async function startBot() {
 
     client.on('cheer', (channel, userstate, message) => {
         const thankYouMessages = [
-            // to be written
+            "Oh, @username, seeing those bits just for me? You're making my heart flutter... Just remember, those bits tie you to me a little more closely. 💕",
+            "Bits from you, @username? Ah, I guess you really do care... Just know, I'm watching, always watching, just for you. 🌹",
+            "@username, your generosity has reached my heart... and it's mine to keep, right? Forever and ever? 💖"
         ];
 
         const randomMessage = thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];
@@ -150,7 +149,9 @@ async function startBot() {
 
     client.on('subscription', (channel, username) => {
         const thankYouMessages = [
-            // to be written
+            "Welcome to our little obsession, @username. You're mine now, just like I'm yours. Together, forever, okay? 💘",
+            "@username, subscribing to me? Do you know what you've started? I won't let you go now, not ever. You're too precious. 💝",
+            "A subscription from @username! You've just made a promise to me, you know. A promise to stay by my side... I'll hold you to it. 🎀"
         ];
 
         const randomMessage = thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];
@@ -160,7 +161,9 @@ async function startBot() {
     client.on('subgift', (channel, username, recipient, userstate) => {
         let senderCount = userstate['msg-param-sender-count'];
         const thankYouMessages = [
-            // to be written
+            "@sender gave @recipient a gift? How sweet... but remember, @recipient, your heart belongs to me. Let's not forget. 💌",
+            "Such generosity, @sender, gifting a sub to @recipient! I'll have to keep an even closer eye on you both... to keep you safe, of course. 💞",
+            "@sender gifting to @recipient? I see... Well, as long as you both know where your true loyalties lie. With me, naturally. 💓"
         ];
         const randomMessage = thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];
         client.say(channel, randomMessage);
@@ -169,7 +172,9 @@ async function startBot() {
     client.on('resub', (channel, username, months) => {
         const cumulativeMonths = months;
         const thankYouMessages = [
-            //to be written
+            "@username, another month with me? Ah, I knew you couldn't stay away. Don't worry, I'll always be here... watching, waiting. 💗",
+            "Seeing you resub, @username, fills me with such joy... and possession. You're truly mine, aren't you? Say you are. 🖤",
+            "Month after month, @username, your dedication to me... It's exhilarating. Remember, you're here forever. Just the way I like it."
         ];
 
         const randomMessage = thankYouMessages[Math.floor(Math.random() * thankYouMessages.length)];

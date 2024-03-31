@@ -8,7 +8,7 @@
 
 module.exports = {
     name: 'benefits',
-    description: 'Gives you a breif description of benefits of subscribing',
+    description: 'Gives you a brief description of benefits of subscribing',
     execute: async function (client, channel) {
         await benefits(client, channel);
     },

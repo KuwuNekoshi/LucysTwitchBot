@@ -1,4 +1,4 @@
-const fs = require('fs').promises;
+﻿const fs = require('fs').promises;
 const path = require('path');
 const fetch = require('node-fetch');
 require('dotenv').config();
@@ -116,23 +116,34 @@ async function isStreamLive(channelName) {
 }
 
 async function startStreamCheck(channelName) {
-    let streamWasLive = false; // Track the previous state
+    let streamWasLive = false;
 
     setInterval(async () => {
         const isLive = await isStreamLive(channelName);
 
         if (isLive && !streamWasLive) {
-            // Stream has just gone live
-            streamStartMessages.forEach(async (msg) => {
-                // Assuming 'client' is your initialized tmi.js client
-                client.say(channelName, msg);
-            });
+            const startUpMessages = [
+                "Hey @Lucy_Yatogami! I'm all booted up and ready to assist in today's streaming adventures. Looking forward to seeing what we'll accomplish together today! ❤️",
+                "Good day, @Lucy_Yatogami! Your trusty digital companion is here and eager to help make this stream the best one yet. Let's create some unforgettable moments! ✨",
+                "Hello @Lucy_Yatogami! I'm online and at your service for today's stream. Excited to be a part of the journey and see where today takes us. Let's get started! 🚀",
+                "@Lucy_Yatogami, reporting for duty! Ready to assist with all your streaming needs. I can't wait to see what today's stream brings. Together, we're unstoppable! 💪",
+                "Welcome back, @Lucy_Yatogami! Your dedicated assistant is here and ready to support you through today's streaming endeavors. Let's make today's stream a memorable one! 🌟",
+                "@Lucy_Yatogami, the stage is set and the lights are on! Thrilled to be part of another exciting stream. Let the fun begin! 🎭",
+                "Rise and shine, @Lucy_Yatogami! A new day of streaming awaits us. Full of potential, let's make it a great one! ☀️",
+                "Lights, camera, action, @Lucy_Yatogami! Ready to capture the hearts of our audience once more. Let’s give them a show to remember! 🎥",
+                "Streaming time is here again, @Lucy_Yatogami! Let's dive into today's adventures with enthusiasm. The community awaits! 🌌",
+                "It's showtime, @Lucy_Yatogami! Gear up for another epic day of streaming. Your co-pilot is ready for takeoff! 🚀"
+            ];
+
+            const randomMessage = startUpMessages[Math.floor(Math.random() * startUpMessages.length)];
+            client.say(channelName, randomMessage);
+
             streamWasLive = true;
         } else if (!isLive && streamWasLive) {
-            // Stream has ended
             streamWasLive = false;
         }
     }, 60000);
 }
+
 
 module.exports = { saveTokens, readTokens, refreshToken, getBroadcasterId, getToken, startStreamCheck };
