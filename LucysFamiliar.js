@@ -2,7 +2,7 @@ require('dotenv').config();
 const tmi = require('tmi.js');
 const fs = require('fs');
 const path = require('path');
-const { readTokens, refreshToken, streamStartCheck } = require('./token');
+const { readTokens, refreshToken, startStreamCheck } = require('./token');
 
 let lastChatTimestamp = Date.now();
 const globalCooldowns = new Map();
