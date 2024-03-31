@@ -100,6 +100,7 @@ async function startStreamCheck(channelName) {
     let streamWasLive = false;
 
     setInterval(async () => {
+        console.log("Checking if stream is live")
         const isLive = await isStreamLive(channelName);
 
         if (isLive && !streamWasLive) {
