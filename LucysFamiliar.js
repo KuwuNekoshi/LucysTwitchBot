@@ -11,24 +11,11 @@ global.lurkers = new Set();
 
 
 async function startBot() {
-    const client = new tmi.Client({
-        options: { debug: true },
-        connection: {
-            secure: true,
-            reconnect: true,
-        },
-        identity: {
-            username: process.env.BOT_USERNAME,
-            password: process.env.OAUTH_TOKEN,
-        },
-        channels: [ process.env.CHANNEL_NAME ],
-    });
-
     let { accessToken, refreshToken: currentRefreshToken } = await readTokens();
 
     if (!accessToken || !currentRefreshToken) {
-        accessToken = process.env.BAccessToken
-        currentRefreshToken = process.env.BRefreshToken
+        accessToken = process.env.OAUTH_TOKEN
+        currentRefreshToken = process.env.BOT_REFRSHTOKEN
         console.log('Initialised the tokens from env.');
         }
 
@@ -37,6 +24,19 @@ async function startBot() {
         accessToken = tokens.accessToken;
         currentRefreshToken = tokens.refreshToken;
     }
+
+        const client = new tmi.Client({
+        options: { debug: true },
+        connection: {
+            secure: true,
+            reconnect: true,
+        },
+        identity: {
+            username: process.env.BOT_USERNAME,
+            password: accessToken,
+        },
+        channels: [ process.env.CHANNEL_NAME ],
+    });
 
     client.connect();
 
