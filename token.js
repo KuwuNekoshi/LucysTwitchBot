@@ -60,7 +60,7 @@ async function refreshToken(refreshToken) {
         const data = await response.json();
         if (data.access_token) {
             await saveTokens(data.access_token, data.refresh_token);
-            console.log('Access token refreshed.');
+            console.log('Access token refreshed. \nNew Tokens: ' + data.access_token + `\n` + data.refresh_token);
             return { accessToken: data.access_token, refreshToken: data.refresh_token };
         } else {
             console.error('Failed to refresh token:', data);
