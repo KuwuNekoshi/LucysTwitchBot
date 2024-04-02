@@ -91,12 +91,8 @@ async function refreshToken(refreshToken) {
     }
 }
 
-async function isStreamLive(channelName) {
-    const broadcasterId = await getBroadcasterId(channelName);
-    if (!broadcasterId) {
-        console.log(`Could not find broadcaster ID for ${channelName}`);
-        return false;
-    }
+async function isStreamLive() {
+    const broadcasterId = 217731363;
 
     const oAuthToken = await getToken();
     const url = `https://api.twitch.tv/helix/streams?user_id=${broadcasterId}`;
