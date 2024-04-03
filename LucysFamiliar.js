@@ -39,8 +39,10 @@ async function startBot() {
     });
 
     client.connect();
+    setInterval(await refreshToken(currentRefreshToken), 3* 60 * 60 * 1000);
 
     startStreamCheck(process.env.CHANNEL_NAME, client).catch(console.error);
+    
 
     const commands = new Map();
     const aliases = new Map();
