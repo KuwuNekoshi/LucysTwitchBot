@@ -39,7 +39,14 @@ async function startBot() {
     });
 
     client.connect();
-    setInterval(await refreshToken(currentRefreshToken), 3* 60 * 60 * 1000);
+    setInterval(async () => {
+        try {
+            await refreshToken(currentRefreshToken);
+        } catch (error) {
+            console.error("Error refreshing token: ", error);
+        }
+    }, 3 * 60 * 60 * 1000); // Refresh token every 3 hours
+
 
     startStreamCheck(process.env.CHANNEL_NAME, client).catch(console.error);
     
