@@ -167,7 +167,7 @@ async function startBot() {
         client.say(channel, randomMessage);
     });
 
-    client.on("subgift", (channel, username, streakMonths, recipient, methods, userstate) => {
+    client.on('subgift', (channel, username, streakMonths, recipient, methods, userstate) => {
         let senderCount = ~~userstate['msg-param-sender-count'];
         const thankYouMessages = [
             `@${username} gave @${recipient} a gift? How sweet... but remember, @${recipient}, your heart belongs to me. Let's not forget. 💌`,
@@ -178,7 +178,7 @@ async function startBot() {
         client.say(channel, randomMessage);
     });
 
-    client.on('resub', (channel, username, months) => {
+    client.on('resub', (channel, username, months, message, userstate, methods) => {
         const thankYouMessages = [
             `@${username}, another month with me? Ah, I knew you couldn't stay away. Don't worry, I'll always be here... watching, waiting. 💗`,
             `Seeing you resub, @${username}, fills me with such joy... and possession. You're truly mine, aren't you? Say you are. 🖤`,
