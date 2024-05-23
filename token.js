@@ -106,7 +106,7 @@ async function isStreamLive() {
         const data = await response.json();
         return data.data && data.data.length > 0 && data.data[0].type === 'live';
     } catch (error) {
-        console.error(`Error checking stream status for ${channelName}:`, error);
+        console.error(`Error checking stream status:`, error);
         return false;
     }
 }
