@@ -113,7 +113,7 @@ async function isStreamLive() {
         return data.data.length > 0;
     } catch (error) {
         console.error(`Failed to check if stream is live: ${error}`);
-        return false; // Consider how you want to handle errors - returning false is a safe default
+        return true;
     }
 }
 
