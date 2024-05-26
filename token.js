@@ -92,7 +92,7 @@ async function refreshToken(refreshToken) {
 }
 
 async function isStreamLive() {
-    const endpoint = `https://api.twitch.tv/helix/streams?user_id=${channelId}`;
+    const endpoint = `https://api.twitch.tv/helix/streams?user_id=217731363`;
     const options = {
         method: 'GET',
         headers: {
