@@ -92,6 +92,7 @@ async function refreshToken(refreshToken) {
 }
 
 async function isStreamLive() {
+    const oAuthToken = await getToken();
     const endpoint = `https://api.twitch.tv/helix/streams?user_id=217731363`;
     const options = {
         method: 'GET',
