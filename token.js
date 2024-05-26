@@ -92,22 +92,27 @@ async function refreshToken(refreshToken) {
 }
 
 async function isStreamLive() {
-    const broadcasterId = 217731363;
-
-    const oAuthToken = await getToken();
-    const url = `https://api.twitch.tv/helix/streams?user_id=${broadcasterId}`;
-    const headers = {
-        'Client-ID': process.env.BOT_CLIENT_ID,
-        'Authorization': `Bearer ${oAuthToken}`,
+    const endpoint = `https://api.twitch.tv/helix/streams?user_id=${channelId}`;
+    const options = {
+        method: 'GET',
+        headers: {
+            'Client-ID': process.env.BOT_CLIENT_ID,
+            'Authorization': `Bearer ${oAuthToken}`,
+            'Content-Type': 'application/json',
+        },
     };
 
     try {
-        const response = await fetch(url, { headers });
+        const response = await fetch(endpoint, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
-        return data.data && data.data.length > 0 && data.data[0].type === 'live';
+        // The data will contain an array of stream information -- if the array is empty, the stream is not live
+        return data.data.length > 0;
     } catch (error) {
-        console.error(`Error checking stream status:`, error);
-        return false;
+        console.error(`Failed to check if stream is live: ${error}`);
+        return false; // Consider how you want to handle errors - returning false is a safe default
     }
 }
 
