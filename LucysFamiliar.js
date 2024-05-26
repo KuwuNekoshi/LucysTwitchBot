@@ -46,9 +46,6 @@ async function startBot() {
             console.error("Error refreshing token: ", error);
         }
     }, 3 * 60 * 60 * 1000); // Refresh token every 3 hours
-
-
-    startStreamCheck(process.env.CHANNEL_NAME, client).catch(console.error);
     
 
     const commands = new Map();

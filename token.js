@@ -91,4 +91,4 @@ async function refreshToken(refreshToken) {
     }
 }
 
-module.exports = { saveTokens, readTokens, refreshToken, getBroadcasterId, getToken, startStreamCheck };
+module.exports = { saveTokens, readTokens, refreshToken, getBroadcasterId, getToken };
